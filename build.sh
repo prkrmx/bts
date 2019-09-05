@@ -226,3 +226,11 @@ if [ "$COMPONENT" == "all" ] || [ "$COMPONENT" == "system-config" ]; then
 	echo "# - done"
 	echo
 fi
+
+echo "# setting initialization of services"
+sayAndDo cd helpers
+sayAndDo sudo cp systemd/* /etc/systemd/system/
+sayAndDo cd ..
+echo "# - done"
+echo "# - please restart the system!!!!"
+echo
