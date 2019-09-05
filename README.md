@@ -1,35 +1,69 @@
-Development Environment
-=========
+OpenBTS project on a fresh Ubuntu 16.04 server with uhd.
 
-A collection of tools to make working with the numerous software components as painless as possible.
+## Components
+The installation consists next source builds:
+- [UHD](http://uhd.ettus.com)
+- [OpenBTS](https://github.com/RangeNetworks/dev)
+- [Systemd Scripts](https://github.com/nadiia-kotelnikova/openbts_systemd_scripts)
 
-If there's a task that annoys you when working with the code, open an issue to suggest an improvement. Or, better, send a pull request to get your automation included in the project.
+Support B200mini and B205mini usrp devices :+1: 
 
-### &#10143; [Get Started Here](https://github.com/RangeNetworks/dev/wiki)
+Installation goes without errors if you do not install UHD driver manually before OpenBTS installation. For the Ettus manufacture build.sh script automatically installs UHD driver from the Ubuntu repository. I would suggest installing from the beginning on fresh OS. Here what I am doing:
+## Configure and Build
+```
+sudo apt install git -y
+git clone https://github.com/prkrmx/bts.git src
+cd src/
+./build.sh B205mini
+cd BUILDS/20XX-XX-XX--XX-XX-XX/
+sudo dpkg -i *.deb
+```
+After the installation process is complete, configure the services
+```
+cd 
+sudo cp src/helpers/systemd/* /etc/systemd/system/
+sudo systemctl reload
+```
+Load UHD images
+```
+sudo /usr/lib/uhd/utils/uhd_images_downloader.py
+sudo uhd_usrp_probe
+linux; GNU C++ version 5.3.1 20151219; Boost_105800; UHD_003.009.002-0-unknown
 
-#### Weather Report
-
-| Component     | master status |
-|---------------|:-------------:|
-| asterisk | [![Build Status](https://travis-ci.org/RangeNetworks/asterisk.svg?branch=master)](https://travis-ci.org/RangeNetworks/asterisk) |
-| asterisk-config | [![Build Status](https://travis-ci.org/RangeNetworks/asterisk-config.svg?branch=master)](https://travis-ci.org/RangeNetworks/asterisk-config) |
-| liba53 | [![Build Status](https://travis-ci.org/RangeNetworks/liba53.svg?branch=master)](https://travis-ci.org/RangeNetworks/liba53) |
-| libcoredumper | [![Build Status](https://travis-ci.org/RangeNetworks/libcoredumper.svg?branch=master)](https://travis-ci.org/RangeNetworks/libcoredumper) |
-| libsqliteodbc | [![Build Status](https://travis-ci.org/RangeNetworks/libsqliteodbc.svg?branch=master)](https://travis-ci.org/RangeNetworks/libsqliteodbc) |
-| libzmq | [![Build Status](https://travis-ci.org/RangeNetworks/libzmq.svg?branch=master)](https://travis-ci.org/RangeNetworks/libzmq) |
-| openbts | [![Build Status](https://travis-ci.org/RangeNetworks/openbts.svg?branch=master)](https://travis-ci.org/RangeNetworks/openbts) |
-| smqueue | [![Build Status](https://travis-ci.org/RangeNetworks/smqueue.svg?branch=master)](https://travis-ci.org/RangeNetworks/smqueue) |
-| subscriberRegistry | [![Build Status](https://travis-ci.org/RangeNetworks/subscriberRegistry.svg?branch=master)](https://travis-ci.org/RangeNetworks/subscriberRegistry) |
-| system-config | [![Build Status](https://travis-ci.org/RangeNetworks/system-config.svg?branch=master)](https://travis-ci.org/RangeNetworks/system-config) |
-
-#### Misc. Notes
-
-- relink submodule branch tracking
+-- Loading firmware image: /usr/share/uhd/images/usrp_b200_fw.hex...
+-- Detected Device: B205mini
+-- Loading FPGA image: /usr/share/uhd/images/usrp_b205mini_fpga.bin... done
+-- Operating over USB 3.
+-- Initialize CODEC control...
+-- Initialize Radio control...
+-- Performing register loopback test... pass
+-- Performing CODEC loopback test... pass
+-- Asking for clock rate 16.000000 MHz...
+-- Actually got clock rate 16.000000 MHz.
+-- Performing timer loopback test... pass
+-- Setting master clock rate selection to 'automatic'.
+  _____________________________________________________
+ /
+|       Device: B-Series Device
+|     _____________________________________________________
+|    /
+|   |       Mboard: B205mini
+|   |   revision: 3
+|   |   product: 30522
+|   |   serial: 3180EA7
+|   |   name: RX_1
+|   |   FW Version: 8.0
+|   |   FPGA Version: 4.0
+|   |
+|   |   Time sources: none, internal, external
+|   |   Clock sources: internal, external
+|   |   Sensors: ref_locked
 
 ```
-$ vi .gitmodules
-(change submodule to track different branch X)
-$ git submodule update --init --remote
-$ cd theSubmoduleDir
-$ git checkout X
+Done!
+## Start Stop
 ```
+sudo src/helpers/openbts-start.sh
+sudo src/helpers/openbts-stop.sh
+```
+
