@@ -231,16 +231,4 @@ if [ "$COMPONENT" == "all" ] || [ "$COMPONENT" == "system-config" ]; then
 	echo
 fi
 
-echo "# setting initialization of services"
-sayAndDo cd helpers
-sayAndDo sudo cp systemd/* /etc/systemd/system/
-sayAndDo sudo systemctl reload
-sayAndDo cd ..
-echo "# - done"
-echo
-
-echo "# loading UHD images"
-sayAndDo sudo /usr/lib/uhd/utils/uhd_images_downloader.py
-echo "# - done"
-echo
 	
