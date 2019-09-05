@@ -21,7 +21,7 @@ source $(dirname $0)/common.source
 
 usage () {
 	echo "# usage: ./build.sh.sh radio-type (component-name)"
-	echo "# valid radio types are: SDR1, USRP1, B100, B110, B200, B210, N200, N210"
+	echo "# valid radio types are: SDR1, USRP1, B100, B110, B200, B210, B200mini, B205mini, N200, N210"
 	echo "# (optional) valid component names are: libcoredumper, liba53, subscriberRegistry, smqueue, openbts, asterisk, asterisk-config, system-config"
 	exit 1
 }
@@ -51,7 +51,7 @@ elif [ "$RADIO" == "SDR1" ] || [ "$RADIO" == "RAD1" ]; then
 elif [ "$RADIO" == "USRP1" ]; then
 	MANUFACTURER="Ettus"
 	EXTRA_CONFIGURE_FLAGS="--with-usrp1"
-elif [ "$RADIO" == "B100" ] || [ "$RADIO" == "B110" ] || [ "$RADIO" == "B200" ] || [ "$RADIO" == "B210" ] || [ "$RADIO" == "N200" ] || [ "$RADIO" == "N210" ]; then
+elif [ "$RADIO" == "B100" ] || [ "$RADIO" == "B110" ] || [ "$RADIO" == "B200" ] || [ "$RADIO" == "B210" ] || [ "$RADIO" == "B200mini" ]   || [ "$RADIO" == "B205mini" ] || [ "$RADIO" == "N200" ] || [ "$RADIO" == "N210" ]; then
 	MANUFACTURER="Ettus"
 	EXTRA_CONFIGURE_FLAGS="--with-uhd"
 fi
