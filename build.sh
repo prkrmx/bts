@@ -100,11 +100,15 @@ echo "# - done"
 echo
 
 echo "# checking build dependencies"
+installIfMissing ntp 
+installIfMissing ntpdate 
+installIfMissing bind9 
+installIfMissing resolvconf
 installIfMissing autoconf
 installIfMissing automake
 installIfMissing libtool
 installIfMissing debhelper
-installIfMissing sqlite3
+installIfMissing sqlite3	
 installIfMissing libsqlite3-dev
 installIfMissing libusb-1.0-0
 installIfMissing libusb-1.0-0-dev
@@ -232,5 +236,4 @@ sayAndDo cd helpers
 sayAndDo sudo cp systemd/* /etc/systemd/system/
 sayAndDo cd ..
 echo "# - done"
-echo "# - please restart the system!!!!"
 echo
