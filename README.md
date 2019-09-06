@@ -66,4 +66,19 @@ Done!
 sudo src/helpers/openbts-start.sh
 sudo src/helpers/openbts-stop.sh
 ```
+## Logs
+```
+tail -f /var/log/upstart/asterisk.log
+tail -f /var/log/upstart/sipauthserve.log
+tail -f /var/log/upstart/smqueue.log
+tail -f /var/log/upstart/openbts.log
 
+cd /etc/asterisk
+asterisk -rvvv
+```
+
+## Setup
+```
+sudo src/helpers/openbts-start.sh
+sudo src/helpers/openbts-stop.sh
+```
