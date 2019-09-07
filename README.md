@@ -66,19 +66,8 @@ Done!
 sudo src/helpers/openbts-start.sh
 sudo src/helpers/openbts-stop.sh
 ```
-## Logs
-```
-tail -f /var/log/upstart/asterisk.log
-tail -f /var/log/upstart/sipauthserve.log
-tail -f /var/log/upstart/smqueue.log
-tail -f /var/log/upstart/openbts.log
-
-cd /etc/asterisk
-asterisk -rvvv
-```
-
 ## Setup
+Receiver gain setting 0-10 dB for Ettus hardware.
 ```
-sudo src/helpers/openbts-start.sh
-sudo src/helpers/openbts-stop.sh
+/OpenBTS/OpenBTSCLI -c 'devconfig GSM.Radio.RxGain 10'
 ```
